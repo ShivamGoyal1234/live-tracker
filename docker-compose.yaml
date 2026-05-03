@@ -1,5 +1,5 @@
 # Production stack for VPS (Hostinger expects docker-compose.yaml at repo root).
-# TLS + public hostname: handled by nginx on the host — proxy to 127.0.0.1:3000 (see nginx-tracker.example.conf).
+# TLS + public hostname: nginx on host proxies here — 3010 avoids clashes with other stacks using :3000 (see nginx-tracker.example.conf).
 # Local dev: docker compose -f docker-compose.dev.yml up
 
 services:
@@ -40,7 +40,7 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     ports:
-      - '127.0.0.1:3000:3000'
+      - '127.0.0.1:3010:3000'
     depends_on:
       kafka:
         condition: service_started
