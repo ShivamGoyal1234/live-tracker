@@ -1,3 +1,5 @@
+# Unused in production: HTTPS and routing go through host nginx → 127.0.0.1:3000.
+# See nginx-tracker.example.conf. Kept for optional local experiments only.
 tracker.shivam-goyal.site {
 	reverse_proxy app:3000
 }
