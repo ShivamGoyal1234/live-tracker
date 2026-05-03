@@ -2,17 +2,23 @@
 # Local dev: docker compose -f docker-compose.dev.yml up
 
 services:
+  # Inline Caddy config (no bind mount) — Hostinger deploy path often lacks ./Caddyfile as a real file.
   caddy:
     image: caddy:2-alpine
     ports:
       - '80:80'
       - '443:443'
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
       - app
+    command:
+      - sh
+      - -c
+      - |
+          printf '%s\n' 'tracker.shivam-goyal.site {' '	reverse_proxy app:3000' '}' > /tmp/Caddyfile
+          exec caddy run --config /tmp/Caddyfile
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
@@ -39,6 +45,12 @@ services:
       POSTGRES_PASSWORD: locpass
     volumes:
       - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U locuser -d locationdb']
+      interval: 3s
+      timeout: 5s
+      retries: 15
+      start_period: 10s
 
   app:
     build:
@@ -47,8 +59,10 @@ services:
     expose:
       - '3000'
     depends_on:
-      - kafka
-      - postgres
+      kafka:
+        condition: service_started
+      postgres:
+        condition: service_healthy
     environment:
       NODE_ENV: production
       DATABASE_URL: postgres://locuser:locpass@postgres:5432/locationdb
