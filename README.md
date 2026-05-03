@@ -88,7 +88,7 @@ Requires Node.js 20+, PostgreSQL 16+, Kafka reachable at `KAFKA_BROKERS`.
 cd backend
 cp ../.env.example ../.env   # or set env vars manually
 npm install
-export DATABASE_URL=postgres://locuser:locpass@localhost:5432/locationdb
+export DATABASE_URL=postgres://locuser:locpass@localhost:5433/locationdb
 export KAFKA_BROKERS=localhost:9092
 # plus OAuth + JWT + session secrets
 npm start
