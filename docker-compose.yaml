@@ -1,5 +1,5 @@
 # Production stack for VPS (Hostinger expects docker-compose.yaml at repo root).
-# Local dev: docker compose -f docker-compose.yml up
+# Local dev: docker compose -f docker-compose.dev.yml up
 
 services:
   caddy:
