@@ -1,0 +1,26 @@
+{
+  "name": "live-location-backend",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.6.1",
+    "kafkajs": "^2.2.4",
+    "pg": "^8.11.3",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "express-session": "^1.17.3",
+    "jsonwebtoken": "^9.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "lodash.throttle": "^4.1.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

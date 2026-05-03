@@ -1,0 +1,3 @@
+tracker.shivam-goyal.site {
+	reverse_proxy app:3000
+}

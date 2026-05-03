@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Location — Map</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="top-bar">
+        <div class="brand">
+          <span class="logo-dot" aria-hidden="true"></span>
+          <span class="brand-name">LiveTrack</span>
+        </div>
+        <div class="top-bar-right" id="user-panel">
+          <span class="guest-msg" id="guest-msg">Sign in to share your live location</span>
+          <div class="user-chip hidden" id="user-chip">
+            <img id="user-avatar" alt="" width="36" height="36" />
+            <span id="user-name"></span>
+            <button type="button" class="btn btn-ghost" id="btn-logout">Logout</button>
+          </div>
+          <a class="btn btn-primary" id="btn-login" href="/auth/google">Login with Google</a>
+        </div>
+      </header>
+
+      <div class="main">
+        <aside class="sidebar">
+          <section class="sidebar-section">
+            <h2>Live now</h2>
+            <p class="stat">
+              <span class="stat-value" id="online-count">0</span>
+              <span class="stat-label">users online</span>
+            </p>
+          </section>
+          <section class="sidebar-section grow">
+            <h2>People on map</h2>
+            <ul class="user-list" id="user-list" aria-live="polite"></ul>
+            <p class="empty-hint hidden" id="user-list-empty">No one else is sharing location yet.</p>
+          </section>
+          <section class="sidebar-section legend">
+            <h3>Legend</h3>
+            <ul class="legend-list">
+              <li><span class="dot dot-live"></span> Live tracking</li>
+              <li><span class="dot dot-away"></span> Recently offline</li>
+            </ul>
+          </section>
+        </aside>
+
+        <main class="map-wrap">
+          <div id="map" role="application" aria-label="Live location map"></div>
+          <p id="geo-warning" class="geo-warning hidden"></p>
+        </main>
+      </div>
+    </div>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
